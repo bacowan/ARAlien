@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 150b771c021f45d48873c0d8caddd485
 ModelImporter:
-  serializedVersion: 21100
+  serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: -4791504522942941401
@@ -17,6 +17,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -33,7 +34,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|Armature|mixamo.com|Layer0
+      takeName: Armature|Armature|mixamo.com|Layer0
+      internalID: -4791504522942941401
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -46,6 +76,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 1
@@ -57,6 +88,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -257,20 +289,21 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: CreatureRigged(Clone)
+    - name: Model(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Armature
-      parentName: CreatureRigged(Clone)
+      parentName: Model(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0.000000081460335, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Hips
       parentName: Armature
       position: {x: 0.0000033950805, y: 1.163872, z: -0.01917193}
-      rotation: {x: 0.0000000047248108, y: 0.0000009662875, z: -0.00000092017666, w: 1}
+      rotation: {x: 0.0000000047248108, y: 0.0000009662875, z: -0.00000092017666,
+        w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Spine
       parentName: mixamorig:Hips
@@ -350,7 +383,8 @@ ModelImporter:
     - name: mixamorig:RightForeArm
       parentName: mixamorig:RightArm
       position: {x: -0.0000000061931495, y: 0.5978697, z: -0.000000047960782}
-      rotation: {x: -0.0000000130747795, y: -0.0000020514758, z: -0.00000028622324, w: 1}
+      rotation: {x: -0.0000000130747795, y: -0.0000020514758, z: -0.00000028622324,
+        w: 1}
       scale: {x: 0.9999999, y: 1, z: 0.9999999}
     - name: mixamorig:RightHand
       parentName: mixamorig:RightForeArm
@@ -423,32 +457,32 @@ ModelImporter:
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Hair
-      parentName: CreatureRigged(Clone)
+      parentName: Model(Clone)
       position: {x: -0.14839688, y: 4.815537, z: 0.4318581}
       rotation: {x: -0.48204783, y: -0.1714426, z: -0.15293263, w: 0.8454874}
       scale: {x: 5.689196, y: 5.689195, z: 7.465855}
     - name: Eyes
-      parentName: CreatureRigged(Clone)
+      parentName: Model(Clone)
       position: {x: 0.023328375, y: 3.6942694, z: 0.12710004}
       rotation: {x: -0.5088422, y: -0.3313304, z: 0.7263718, w: 0.32199988}
       scale: {x: 43.928707, y: 32.79833, z: 50.04441}
     - name: Body
-      parentName: CreatureRigged(Clone)
+      parentName: Model(Clone)
       position: {x: -0.055123895, y: 1.6247048, z: 0.000000276619}
       rotation: {x: -0.7071068, y: -5.840557e-10, z: -1.5588139e-10, w: 0.7071067}
       scale: {x: 50.695824, y: 50.695824, z: 87.7813}
     - name: Head
-      parentName: CreatureRigged(Clone)
+      parentName: Model(Clone)
       position: {x: 0.023328375, y: 3.6942694, z: 0.12710004}
       rotation: {x: -0.5088422, y: -0.3313304, z: 0.7263718, w: 0.32199988}
       scale: {x: 43.928707, y: 32.79833, z: 50.04441}
     - name: RightEar
-      parentName: CreatureRigged(Clone)
+      parentName: Model(Clone)
       position: {x: 0.023328375, y: 3.6942694, z: 0.12710004}
       rotation: {x: -0.5088422, y: -0.3313304, z: 0.7263718, w: 0.32199988}
       scale: {x: 43.928707, y: 32.79833, z: 50.04441}
     - name: LeftEar
-      parentName: CreatureRigged(Clone)
+      parentName: Model(Clone)
       position: {x: 0.023328375, y: 3.6942694, z: 0.12710004}
       rotation: {x: -0.5088422, y: -0.3313304, z: 0.7263718, w: 0.32199988}
       scale: {x: 43.928707, y: 32.79833, z: 50.04441}
@@ -462,7 +496,7 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
@@ -470,6 +504,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
