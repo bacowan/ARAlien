@@ -525,6 +525,7 @@ MonoBehaviour:
   Character: {fileID: 2921104554359019677, guid: 46600e780587f4e419826b46598dfc63,
     type: 3}
   ARCamera: {fileID: 1354141926}
+  Script: {fileID: 4900000, guid: 7044393548591c24594f7989cdc98c62, type: 3}
 --- !u!114 &1659859601
 MonoBehaviour:
   m_ObjectHideFlags: 0
