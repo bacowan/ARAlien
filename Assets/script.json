@@ -1,0 +1,10 @@
+{
+	"items": [
+		{
+			"lat": 37.504048,
+			"lon": 139.938100,
+			"text": "this is a test, yep",
+			"maxDist": 0.02
+		}
+	]
+}
