@@ -524,6 +524,8 @@ MonoBehaviour:
   MaxSpawnDistance: 2
   Character: {fileID: 2921104554359019677, guid: 46600e780587f4e419826b46598dfc63,
     type: 3}
+  SpeechBubble: {fileID: 8155277036465366205, guid: fe81ffd2357380a45ab98eb0d9a7bcb6,
+    type: 3}
   ARCamera: {fileID: 1354141926}
   Script: {fileID: 4900000, guid: 7044393548591c24594f7989cdc98c62, type: 3}
 --- !u!114 &1659859601

@@ -11,6 +11,7 @@ public class ARCreateAlien : MonoBehaviour
     public float MinSpawnDistance;
     public float MaxSpawnDistance;
     public GameObject Character;
+    public GameObject SpeechBubble;
     public Camera ARCamera;
     public TextAsset Script;
 
@@ -95,25 +96,24 @@ public class ARCreateAlien : MonoBehaviour
             print("Unable to determine device location");
             yield break;
         }
-        /*else
+        else
         {
             // If the connection succeeded, this retrieves the device's current location and displays it in the Console window.
             print("Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude + " " + Input.location.lastData.altitude + " " + Input.location.lastData.horizontalAccuracy + " " + Input.location.lastData.timestamp);
-        }*/
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         var location = Input.location.lastData;
-
         if (SpawnedIndex == null)
         {
             int? scriptIndex = null;
             ScriptCollection.ScriptItem scriptForLocation = null;
-            for (int i = 0; i < scriptItems.ScriptItems.Length; i++)
+            for (int i = 0; i < scriptItems.items.Length; i++)
             {
-                scriptForLocation = scriptItems.ScriptItems[i];
+                scriptForLocation = scriptItems.items[i];
                 if (HaversineDistance(location.latitude, location.longitude, scriptForLocation.lat, scriptForLocation.lon) <= scriptForLocation.maxDist)
                 {
                     scriptIndex = i;
@@ -126,8 +126,7 @@ public class ARCreateAlien : MonoBehaviour
                     var hit = Hits[0];
                     if (hit.distance >= MinSpawnDistance && hit.distance <= MaxSpawnDistance)
                     {
-                        spawnedAlien = Instantiate(Character, hit.pose.position, hit.pose.rotation);
-                        spawnedAlien.GetComponent<Alien>().ARCamera = ARCamera;
+                        SpawnAlien(hit, scriptForLocation);
                         SpawnedIndex = scriptIndex;
                     }
                 }
@@ -135,10 +134,28 @@ public class ARCreateAlien : MonoBehaviour
         }
         else
         {
-            var script = scriptItems.ScriptItems[SpawnedIndex.Value];
+            var script = scriptItems.items[SpawnedIndex.Value];
             if (HaversineDistance(location.latitude, location.longitude, script.lat, script.lon) > script.maxDist)
             {
+                print("left area");
                 Destroy(spawnedAlien);
+            }
+        }
+    }
+
+    private void SpawnAlien(ARRaycastHit hit, ScriptCollection.ScriptItem script)
+    {
+        spawnedAlien = Instantiate(Character, hit.pose.position, hit.pose.rotation);
+        spawnedAlien.GetComponent<Alien>().ARCamera = ARCamera;
+        var speechBubble = Instantiate(SpeechBubble, spawnedAlien.transform);
+
+        var canvas = speechBubble?.transform?.GetChild(1)?.GetComponent<Canvas>();
+        if (canvas != null)
+        {
+            var body = canvas?.transform?.GetChild(0)?.GetComponent<TMPro.TextMeshProUGUI>();
+            if (body != null)
+            {
+                body.text = script.text;
             }
         }
     }
@@ -157,7 +174,7 @@ public class ARCreateAlien : MonoBehaviour
     [Serializable]
     private class ScriptCollection
     {
-        public ScriptItem[] ScriptItems;
+        public ScriptItem[] items;
 
         [Serializable]
         public class ScriptItem
