@@ -5,6 +5,7 @@ using UnityEngine.XR.ARSubsystems;
 using UnityEngine;
 using System.Linq;
 using System;
+using TMPro;
 
 public class ARCreateAlien : MonoBehaviour
 {
@@ -28,21 +29,11 @@ public class ARCreateAlien : MonoBehaviour
     void Awake()
     {
         _raycastManager = GetComponent<ARRaycastManager>();
-        /*ARPlaneManager planeManager = GetComponent<ARPlaneManager>();
-        if (planeManager != null)
-        {
-            planeManager.planesChanged += OnPlanesChanged;
-        }*/
         scriptItems = JsonUtility.FromJson<ScriptCollection>(Script.text);
     }
 
     void Destroy()
     {
-        /*ARPlaneManager planeManager = GetComponent<ARPlaneManager>();
-        if (planeManager != null)
-        {
-            planeManager.planesChanged -= OnPlanesChanged;
-        }*/
     }
 
 
@@ -117,6 +108,7 @@ public class ARCreateAlien : MonoBehaviour
                 if (HaversineDistance(location.latitude, location.longitude, scriptForLocation.lat, scriptForLocation.lon) <= scriptForLocation.maxDist)
                 {
                     scriptIndex = i;
+                    break;
                 }
             }
             if (scriptIndex != null)
@@ -137,8 +129,8 @@ public class ARCreateAlien : MonoBehaviour
             var script = scriptItems.items[SpawnedIndex.Value];
             if (HaversineDistance(location.latitude, location.longitude, script.lat, script.lon) > script.maxDist)
             {
-                print("left area");
                 Destroy(spawnedAlien);
+                SpawnedIndex = null;
             }
         }
     }
@@ -159,17 +151,6 @@ public class ARCreateAlien : MonoBehaviour
             }
         }
     }
-
-    /*void OnPlanesChanged(ARPlanesChangedEventArgs args)
-    {
-        Debug.Log("Detected");
-        foreach (var plane in args.added)
-        {
-            Debug.Log(plane.boundary);
-        }
-        // TODO: If this is the first time seeing such a plane, spawn the alien.
-        // Reset "first time" if we leave the GPS area.
-    }*/
 
     [Serializable]
     private class ScriptCollection
