@@ -1,28 +1,20 @@
 {
 	"items": [
 		{
-			"lat": 37.52404378708137,
-			"lon": 139.93769751063394,
-			"text": "Hello!! My name is Lunaara Tsukiri. I am from a planet called Sakurion Prime. I want to learn about the design of universities on planet earth. Make a short video which gives me a tour of this area and tells me about it. For example: What is it used for? What furniture is in the area? How do you use this furniture? What parts of this area do you think are well designed? Which parts do you want to change? I want all of your group to speak during the video. The video should be 4 minutes long.",
-			"maxDist": 0.015
+			"name": "Library",
+			"text": "Hello!! My name is Lunaara Tsukiri. I am from a planet called Sakurion Prime. I want to learn about the design of universities on planet earth. Make a short video which gives me a tour of this area and tells me about it. For example: What is it used for? What furniture is in the area? How do you use this furniture? What parts of this area do you think are well designed? Which parts do you want to change? I want all of your group to speak during the video. The video should be 4 minutes long."
 		},
 		{
-			"lat": 37.523663170411254,
-			"lon": 139.93678165522869,
-			"text": "Hello!! My name is Zara. I am from a planet called Aizen. I want to learn about the design of universities on planet earth. Make a short video which gives me a tour of this area and tells me about it. For example: What is it used for? What are these vehicles? How do you use them? What parts of this area do you think are well designed? Which parts do you want to change? I want all of your group to speak during the video. The video should be 4 minutes long.",
-			"maxDist": 0.025
+			"name": "BikeParking",
+			"text": "Hello!! My name is Zara. I am from a planet called Aizen. I want to learn about the design of universities on planet earth. Make a short video which gives me a tour of this area and tells me about it. For example: What is it used for? What are these vehicles? How do you use them? What parts of this area do you think are well designed? Which parts do you want to change? I want all of your group to speak during the video. The video should be 4 minutes long."
 		},
 		{
-			"lat": 37.52368111885897,
-			"lon": 139.93853223807173,
-			"text": "Hello!! My name is Kirei'ka. I am from a planet called Hirikara. I want to learn about the design of universities on planet earth. Make a short video which gives me a tour of this room and tells me about it. For example: What is it used for? What are these machines? How do you use them? What parts of this room are well designed? How could this room be better designed? I want all of your group to speak during the video. The video should be 4 minutes long.",
-			"maxDist": 0.010
+			"name": "Gym",
+			"text": "Hello!! My name is Kirei'ka. I am from a planet called Hirikara. I want to learn about the design of universities on planet earth. Make a short video which gives me a tour of this room and tells me about it. For example: What is it used for? What are these machines? How do you use them? What parts of this room are well designed? How could this room be better designed? I want all of your group to speak during the video. The video should be 4 minutes long."
 		},
 		{
-			"lat": 37.52335642900858,
-			"lon": 139.9372494853077,
-			"text": "Hello!! My name is Korin. I am from a planet called Nariku. I want to learn about the design of universities on planet earth. Make a short video which gives me a tour of this building and tells me about it. For example: What is it used for? What furniture is used in this room? How do you use the furniture? What is stored here? What parts of this room are well designed? How could this room be better designed? I want all of your group to speak during the video. The video should be 4 minutes long.",
-			"maxDist": 0.025
+			"name": "Cafeteria",
+			"text": "Hello!! My name is Korin. I am from a planet called Nariku. I want to learn about the design of universities on planet earth. Make a short video which gives me a tour of this building and tells me about it. For example: What is it used for? What furniture is used in this room? How do you use the furniture? What is stored here? What parts of this room are well designed? How could this room be better designed? I want all of your group to speak during the video. The video should be 4 minutes long."
 		}
 	]
 }

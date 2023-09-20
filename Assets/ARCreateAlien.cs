@@ -16,8 +16,8 @@ public class ARCreateAlien : MonoBehaviour
     public Camera ARCamera;
     public TextAsset Script;
 
-    private ARRaycastManager _raycastManager;
-
+    private readonly Dictionary<string, Tuple<GameObject, ScriptCollection.ScriptItem>> instantiatedScripts
+        = new Dictionary<string, Tuple<GameObject, ScriptCollection.ScriptItem>>();
     private static readonly List<ARRaycastHit> Hits = new List<ARRaycastHit>();
 
     private int? SpawnedIndex = null;
@@ -25,77 +25,76 @@ public class ARCreateAlien : MonoBehaviour
     private ScriptCollection scriptItems;
 
     private GameObject spawnedAlien;
+    private ARTrackedImageManager trackedImagesManager;
 
     void Awake()
     {
-        _raycastManager = GetComponent<ARRaycastManager>();
+        trackedImagesManager = GetComponent<ARTrackedImageManager>();
         scriptItems = JsonUtility.FromJson<ScriptCollection>(Script.text);
     }
 
-    void Destroy()
+    void OnEnable()
     {
+        trackedImagesManager.trackedImagesChanged += OnTrackedImagesChanged;
+    }
+
+    void OnDisable()
+    {
+        trackedImagesManager.trackedImagesChanged -= OnTrackedImagesChanged;
+    }
+
+    private void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
+    {
+        // go through each recognized image and check for them in the email config
+        foreach (var trackedImage in eventArgs.added)
+        {
+            var imageName = trackedImage.referenceImage.name;
+            foreach (var script in scriptItems.items)
+            {
+                if (string.Compare(script.name, imageName, StringComparison.Ordinal) == 0
+                    && !instantiatedScripts.ContainsKey(imageName))
+                {
+                    // script found; create it and update the UI
+                    var newPrefab = SpawnAlien(trackedImage, script);
+                    instantiatedScripts[imageName] = new Tuple<GameObject, ScriptCollection.ScriptItem>(newPrefab, script);
+                }
+            }
+        }
+
+        //var active = instantiatedEmails.Values.FirstOrDefault(v => v.Item1.activeSelf)?.Item2;
+
+        // Go through images with state changes
+        /*foreach (var trackedImage in eventArgs.updated)
+        {
+            var trackedItem = instantiatedEmails[trackedImage.referenceImage.name];
+            trackedItem.Item1.SetActive(trackedImage.trackingState == TrackingState.Tracking);
+
+            if (questionStates.TryGetValue(trackedImage.referenceImage.name, out var questionState))
+            {
+                UpdateBackgroundText(active, trackedItem.Item1, questionState);
+            }
+        }*/
+
+        // go through items which the tracker has deemed removed
+        foreach (var trackedImage in eventArgs.removed)
+        {
+            Destroy(instantiatedScripts[trackedImage.referenceImage.name].Item1);
+            instantiatedScripts.Remove(trackedImage.referenceImage.name);
+        }
+
+        // update the active email for the UI to display correctly
+        //SetActiveEmail(active);
     }
 
 
-    // Start is called before the first frame update
-    IEnumerator Start()
-    {
-#if UNITY_EDITOR
-        // No permission handling needed in Editor
-#elif UNITY_ANDROID
-        if (!UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.FineLocation)) {
-            UnityEngine.Android.Permission.RequestUserPermission(UnityEngine.Android.Permission.FineLocation);
-        }
 
-        // First, check if user has location service enabled
-        if (!UnityEngine.Input.location.isEnabledByUser) {
-            // TODO Failure
-            Debug.LogFormat("Android and Location not enabled");
-            yield break;
-        }
 
-#elif UNITY_IOS
-        if (!UnityEngine.Input.location.isEnabledByUser) {
-            // TODO Failure
-            Debug.LogFormat("IOS and Location not enabled");
-            yield break;
-        }
-#endif
 
-        // Starts the location service.
-        Input.location.Start();
 
-        // Waits until the location service initializes
-        int maxWait = 20;
-        while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
-        {
-            yield return new WaitForSeconds(1);
-            maxWait--;
-        }
 
-        // If the service didn't initialize in 20 seconds this cancels location service use.
-        if (maxWait < 1)
-        {
-            print("Timed out");
-            yield break;
-        }
-
-        // If the connection failed this cancels location service use.
-        if (Input.location.status == LocationServiceStatus.Failed)
-        {
-            // TODO: Error handling
-            print("Unable to determine device location");
-            yield break;
-        }
-        else
-        {
-            // If the connection succeeded, this retrieves the device's current location and displays it in the Console window.
-            print("Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude + " " + Input.location.lastData.altitude + " " + Input.location.lastData.horizontalAccuracy + " " + Input.location.lastData.timestamp);
-        }
-    }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         var location = Input.location.lastData;
         if (SpawnedIndex == null)
@@ -133,11 +132,11 @@ public class ARCreateAlien : MonoBehaviour
                 SpawnedIndex = null;
             }
         }
-    }
+    }*/
 
-    private void SpawnAlien(ARRaycastHit hit, ScriptCollection.ScriptItem script)
+    private GameObject SpawnAlien(ARTrackedImage trackedImage, ScriptCollection.ScriptItem script)
     {
-        spawnedAlien = Instantiate(Character, hit.pose.position, hit.pose.rotation);
+        spawnedAlien = Instantiate(Character, trackedImage.transform);
         spawnedAlien.GetComponent<Alien>().ARCamera = ARCamera;
         var speechBubble = Instantiate(SpeechBubble, spawnedAlien.transform);
 
@@ -150,6 +149,7 @@ public class ARCreateAlien : MonoBehaviour
                 body.text = script.text;
             }
         }
+        return spawnedAlien;
     }
 
     [Serializable]
@@ -160,10 +160,8 @@ public class ARCreateAlien : MonoBehaviour
         [Serializable]
         public class ScriptItem
         {
-            public double lat;
-            public double lon;
+            public string name;
             public string text;
-            public double maxDist;
         }
     }
 
